@@ -1,0 +1,77 @@
+.glassform {
+  width: 90%;
+  max-width: 50rem;
+  min-height: 30rem;
+  height: fit-content;
+  max-height: 90svh;
+  overflow-y: scroll;
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(5px);
+  animation: glassform-scaleup 0.5s linear;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px 20px 20px 25px;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  outline: 2px solid rgba(255, 255, 255, 0.2);
+  outline-offset: -9px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    position: absolute;
+    right: -5px;
+  }
+
+  &__heading {
+    color: white;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    font-family: $font-orbitron;
+    font-weight: 500;
+    position: relative;
+    text-align: center;
+    font-size: 2rem;
+    letter-spacing: 2px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -0.5rem;
+      // background-color: white;
+      outline: 1px solid white;
+      border-radius: 500rem;
+      outline-offset: 3px;
+      height: 2px;
+      left: 50%;
+      transform: translate(-50%);
+      background-image: radial-gradient(circle, white, transparent);
+      background-size: 2%;
+      width: 250%;
+      min-width: 20rem;
+      max-width: 30rem;
+    }
+  }
+  &__form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__btn {
+    // margin: auto;
+  }
+}
+
+@keyframes glassform-scaleup {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

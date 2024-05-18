@@ -1,0 +1,135 @@
+.creditcard {
+  width: 100%;
+  aspect-ratio: 3.5/2;
+  height: fit-content;
+  //   background-color: red;
+  border-radius: 1rem;
+  $num: 12;
+  $width: 32%;
+  $delta: 1%;
+  $color: rgb(0, 110, 255);
+  //   $color: rgb(49, 224, 255);
+  $color-tr: rgba($color, 0.6);
+  background-size: 100% 100%, 100% 100%, calc(100% / $num) calc(100% / $num),
+    calc(100% / $num) calc(100% / $num), calc(100% / $num) calc(100% / $num),
+    calc(100% / $num) calc(100% / $num);
+  background-color: rgba(lighten(adjust-hue($color, 20), 0), 1);
+  background-image: linear-gradient(
+      135deg,
+      $color-tr 28%,
+      transparent 30% 70%,
+      $color-tr 72%
+    ),
+    linear-gradient(210deg, $color, transparent),
+    linear-gradient(
+      45deg,
+      $color-tr calc($width - $delta),
+      transparent calc($width + $delta)
+    ),
+    linear-gradient(
+      135deg,
+      $color-tr calc($width - $delta),
+      transparent calc($width + $delta)
+    ),
+    linear-gradient(
+      225deg,
+      $color-tr calc($width - $delta),
+      transparent calc($width + $delta)
+    ),
+    linear-gradient(
+      315deg,
+      $color-tr calc($width - $delta),
+      transparent calc($width + $delta)
+    );
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__top {
+    width: 100%;
+    // border: 2px solid;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+  }
+  &__bottom {
+    width: 100%;
+    // border: 2px solid;
+  }
+
+  &__webname {
+    width: fit-content;
+    // left: 1rem;
+    // top: 1rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+
+    // background-color: aqua;
+  }
+
+  &__logo {
+    width: 13%;
+
+    &__image {
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  &__title {
+    line-height: 0;
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    width: fit-content;
+  }
+
+  &__text {
+    font-family: $font-tektur;
+    // font-family: $font-montserrat;
+    font-weight: 500;
+  }
+
+  &__cardnumber {
+    font-size: 2rem;
+    letter-spacing: 2px;
+    word-spacing: 1rem;
+    text-align: center;
+  }
+
+  &__dates {
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.4rem;
+    // justify-content: space-evenly;
+    //   letter-spacing: 2px;
+    //   word-spacing: 1rem;
+    padding: 1rem;
+    //   text-align: center;
+  }
+
+  &__date {
+    font-size: 1.2rem;
+    width: 100%;
+
+    &:nth-child(1) {
+      text-align: left;
+    }
+    &:nth-child(2) {
+      text-align: right;
+    }
+  }
+
+  &__name {
+    padding: 0rem 1rem;
+    width: 100%;
+    font-size: 1.8rem;
+    // background-color: aliceblue;
+    overflow: hidden;
+    // overflow-wrap: break-word;
+    // text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+}

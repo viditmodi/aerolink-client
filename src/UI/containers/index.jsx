@@ -1,1 +1,1 @@
-// export {default as } from ".";
+export { default as GlassForm } from "./GlassForm/GlassForm";

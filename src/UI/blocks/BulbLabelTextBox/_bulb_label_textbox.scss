@@ -1,0 +1,79 @@
+.bl-textbox {
+  width: 100%;
+  position: relative;
+  margin: 25px 0px 5px;
+  //   border: 2px solid red;
+
+  &__label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1.25rem;
+    transition: 0.2s ease-in-out;
+    text-transform: capitalize;
+    color: rgba(255, 255, 255, 0.35);
+  }
+  &__input {
+    padding: 1rem;
+    padding-right: 4.5rem;
+    width: 100%;
+    outline: transparent;
+    transition: 0.1s linear;
+    background-color: transparent;
+    border: 3px solid transparent;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0;
+
+    &:focus {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-radius: 5%/100%;
+      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.7),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+    }
+    &::placeholder {
+      opacity: 0;
+    }
+    &:not(:placeholder-shown) + .bl-textbox__label,
+    &:focus + .bl-textbox__label {
+      top: -16px;
+      transform: scale(0.8);
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+  &__bulb {
+    position: absolute;
+    top: 50%;
+    transform: translate(-100%, -50%);
+    right: 0rem;
+    display: block;
+    width: 15px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    &--neutral {
+      $color: yellow;
+      background-color: $color;
+      box-shadow: 0 0 2px $color, 0 0 5px $color, 0 0 10px $color,
+        0 0 15px $color, 0 0 20px $color;
+      filter: blur(5px);
+    }
+    &--success {
+      $color: rgb(60, 255, 0);
+      background-color: $color;
+      box-shadow: 0 0 2px $color, 0 0 5px $color, 0 0 10px $color,
+        0 0 15px $color, 0 0 20px $color;
+      filter: blur(5px);
+    }
+    &--failure {
+      $color: rgb(255, 0, 0);
+      background-color: $color;
+      box-shadow: 0 0 2px $color, 0 0 5px $color, 0 0 10px $color,
+        0 0 15px $color, 0 0 20px $color;
+      filter: blur(5px);
+    }
+  }
+  &__error {
+  }
+}

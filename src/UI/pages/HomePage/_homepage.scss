@@ -1,0 +1,39 @@
+.homepage {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  //   background-color: aqua;
+  //   border: 2px solid rgb(255, 0, 0);
+
+  &__title {
+    font-size: 8rem;
+    letter-spacing: 2px;
+    // margin-bottom: 1rem;
+  }
+  &__tagline {
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    word-spacing: 7px;
+    margin-bottom: 3rem;
+    text-transform: capitalize;
+  }
+
+  &__btns {
+    width: 100%;
+    max-width: 40rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  &__btn {
+    min-width: fit-content;
+    width: 100%;
+    // padding: 7px 15px;
+  }
+}

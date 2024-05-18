@@ -1,0 +1,57 @@
+.btn {
+  cursor: pointer;
+  font-family: $font-righteous;
+  //   font-family: $font-raleway;
+  //   font-family: $font-tektur;
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: capitalize;
+  border: 2px solid transparent;
+}
+
+.shadow3d-btn {
+  border-radius: 500rem;
+  padding: 1rem 2rem;
+  width: 100%;
+  min-width: 20rem;
+  // max-width: fit-content;
+  transition: 0.2s ease-in-out;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  &--focus {
+    background-image: linear-gradient(
+      to bottom right,
+      crimson 50%,
+      rgb(255, 73, 109)
+    );
+    color: rgb(245, 222, 222);
+    border-color: crimson;
+    --base: crimson;
+    --shadow-deep: rgb(104, 11, 30);
+    --shadow-light: rgb(218, 97, 121);
+  }
+
+  &--dull {
+    --base: crimson;
+    background-color: rgba(crimson, 0.1);
+    border-color: var(--base);
+    color: var(--base);
+    --shadow-deep: rgb(0, 0, 0);
+    --shadow-light: rgba(255, 255, 255, 0.5);
+  }
+
+  &:focus {
+    outline: 2px solid var(--base);
+    outline-offset: 3px;
+  }
+  &:hover {
+    box-shadow: inset 3px 3px 6px var(--shadow-deep),
+      inset -3px -3px 6px var(--shadow-light);
+  }
+  &:active {
+    box-shadow: inset 3px 3px 6px var(--shadow-light),
+      inset -3px -3px 6px var(--shadow-deep);
+  }
+}

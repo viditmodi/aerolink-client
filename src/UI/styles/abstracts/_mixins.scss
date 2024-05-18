@@ -1,0 +1,8 @@
+@mixin glassmorph($color: white, $alpha: 0.5, $blur: 5px) {
+  background-color: rgba($color, $alpha);
+  backdrop-filter: blur($blur);
+  border-bottom: 1px solid rgba($color, $alpha * 2);
+  border-right: 1px solid rgba($color, $alpha * 2);
+  border-left: 1px solid rgba($color, $alpha * 0.5);
+  border-top: 1px solid rgba($color, $alpha * 0.5);
+}
