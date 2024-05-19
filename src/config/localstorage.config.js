@@ -1,4 +1,13 @@
 class LocalStorage {
+  saveCurrentId(id) {
+    sessionStorage.setItem("aerolink__currentid", id);
+  }
+  removeCurrentId() {
+    sessionStorage.removeItem("aerolink__currentid");
+  }
+  getCurrentId() {
+    return sessionStorage.getItem("aerolink__currentid");
+  }
   doesAccountExist() {
     this.checkExistence();
     const accounts = JSON.parse(localStorage.getItem("aerolink_accountsdata"));
@@ -26,6 +35,7 @@ class LocalStorage {
   //blue-f// Auth Tokens
   addAuthToken(token) {
     const tokens = this.getAllAuthTokens() || [];
+    console.log(token);
     const index = tokens.push(token);
     localStorage.setItem("aerolink_authtokens", JSON.stringify(tokens));
     return index - 1;
@@ -40,9 +50,16 @@ class LocalStorage {
     return JSON.parse(localStorage.getItem("aerolink_authtokens"));
   }
   removeAuthToken(index) {
+    const oldToken = localStore.getAuthToken(index);
     const tokens = this.getAllAuthTokens();
-    tokens.filter((token, i) => i !== index);
-    localStorage.setItem("aerolink_authtokens", JSON.stringify(tokens));
+    const tokenArray = [];
+    for (let i = 0; i < tokens.length; i++) {
+      if (i != index && tokens[i] != oldToken) {
+        tokenArray.push(tokens[i]);
+      }
+    }
+    console.log(tokenArray);
+    localStorage.setItem("aerolink_authtokens", JSON.stringify(tokenArray));
   }
   //blue-f// Account Data
   addAccountData(data) {
@@ -59,9 +76,16 @@ class LocalStorage {
   }
 
   removeAccountData(index) {
+    const oldAccount = localStore.getAccountData(index);
     const accounts = this.getAllAccountsData();
-    accounts.filter((account, i) => i !== index);
-    localStorage.setItem("aerolink_accountsdata", JSON.stringify(accounts));
+    const accountArray = [];
+    for (let i = 0; i < accounts.length; i++) {
+      if (i != index && accounts[i].email != oldAccount.email) {
+        accountArray.push(accounts[i]);
+      }
+    }
+    console.log(accountArray);
+    localStorage.setItem("aerolink_accountsdata", JSON.stringify(accountArray));
   }
 
   updateAccountData(data) {

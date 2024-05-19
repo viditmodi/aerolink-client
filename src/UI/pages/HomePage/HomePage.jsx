@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { GlassForm } from "../../containers";
 import { Loader, LoginForm, RegisterForm } from "../../components";
-import localStore from "../../../config/localstorage.config";
+// import localStore from "../../../config/localstorage.config";
+import IdContext from "../../../context/IdContext/IdContext";
 
 const HomePage = (props) => {
+  const ctx = useContext(IdContext);
   const [isLoading, setIsLoading] = useState(false);
-  const numLoggedInAccounts = localStore.doesAccountExist();
+  // const numLoggedInAccounts = localStore.doesAccountExist();
+  const currentId = ctx.currentId;
   if (isLoading) {
     return <Loader></Loader>;
   }
@@ -18,7 +21,7 @@ const HomePage = (props) => {
         <div className="homepage__btns">
           <Link to={"/login"}>
             <button className="btn homepage__btn shadow3d-btn shadow3d-btn--focus">
-              {numLoggedInAccounts === 0 ? "Login" : "Add Account"}
+              {currentId < 0 ? "Login" : "Add Account"}
             </button>
           </Link>
           <Link to={"/register"}>
@@ -31,17 +34,13 @@ const HomePage = (props) => {
     );
   } else if (props.page === "login") {
     return (
-      <GlassForm
-        heading={numLoggedInAccounts == 0 ? "Login" : "Add Another Account"}
-      >
+      <GlassForm heading={currentId < 0 ? "Login" : "Add Another Account"}>
         <LoginForm setIsLoading={setIsLoading}></LoginForm>
       </GlassForm>
     );
   } else if (props.page === "register") {
     return (
-      <GlassForm
-        heading={numLoggedInAccounts === 0 ? "Register" : "Create New Account"}
-      >
+      <GlassForm heading={currentId < 0 ? "Register" : "Create New Account"}>
         <RegisterForm setIsLoading={setIsLoading}></RegisterForm>
       </GlassForm>
     );

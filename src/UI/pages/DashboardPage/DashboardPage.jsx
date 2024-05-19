@@ -1,18 +1,23 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import localStore from "../../../config/localstorage.config";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CreditCard, Loader, UpdateForm } from "../../components";
 import { GlassForm } from "../../containers";
 import editIcon from "../../../assets/icons/edit.png";
 import { BulbLabelTextBox } from "../../blocks";
 import REGEX from "../../../data/REGEX.constant";
+import IdContext from "../../../context/IdContext/IdContext";
 
 const DashboardPage = () => {
-  const [accountData, setAccountData] = useState(undefined);
+  const { id } = useParams();
+  const ctx = useContext(IdContext);
+  const [accountData, setAccountData] = useState(localStore.getAccountData(id));
   const [isLoading, setIsLoading] = useState(false);
 
   const [update, setUpdate] = useState(false);
-  const { id } = useParams();
+  useEffect(() => {
+    ctx.setCurrentId(id);
+  }, []);
   useEffect(() => {
     const data = localStore.getAccountData(id);
     setAccountData(data);
@@ -140,9 +145,13 @@ const DashboardPage = () => {
       </Fragment>
     );
   } else {
+    const navigate = useNavigate();
+    useEffect(() => {
+      navigate("/switch");
+    }, []);
     return (
       <div>
-        <h1>No Account</h1>
+        <h1>Account Information Not Found</h1>
       </div>
     );
   }

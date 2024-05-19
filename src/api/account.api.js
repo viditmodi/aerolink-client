@@ -19,20 +19,22 @@ export const createNewAccount = async (data) => {
 export const logInToAccount = async (data) => {
   try {
     const loginStatus = localStore.isLoggedIn(data.email);
-    console.log(loginStatus);
+    // console.log(loginStatus);
     if (loginStatus >= 0) {
       alert("Already Logged In");
       return loginStatus;
     }
     const response = await request.post(loginURL, data);
     const resData = response.data;
+    // console.log(resData);
     if (resData.status) {
-      const tokenIndex = localStore.addAuthToken(resData.token);
+      const tokenIndex = localStore.addAuthToken(resData.authToken);
       const dataIndex = localStore.addAccountData(resData.data);
+
+      // console.log(localStore.getAllAuthTokens());
 
       return dataIndex;
     }
-    console.log(resData);
     return -1;
   } catch (error) {
     console.log("Error: " + error.response.data.message);
@@ -41,9 +43,9 @@ export const logInToAccount = async (data) => {
 };
 export const updateExistingAccount = async (data) => {
   try {
-    console.log(data);
+    // console.log(data);
     const loginStatus = localStore.isLoggedIn(data.email);
-    console.log(loginStatus);
+    // console.log(loginStatus);
     if (loginStatus < 0) {
       alert("Log In First");
       return loginStatus;
@@ -61,24 +63,30 @@ export const updateExistingAccount = async (data) => {
     return error.response.data;
   }
 };
-export const logoutFromSingleAccount = async (data) => {
+export const logoutFromSingleAccount = async (id) => {
   try {
-    console.log(data);
-    const loginStatus = localStore.isLoggedIn(data.email);
-    console.log(loginStatus);
-    if (loginStatus < 0) {
-      alert("Log In First");
-      return loginStatus;
-    }
+    const data = localStore.getAccountData(id);
+    // console.log(data);
+    // const loginStatus = localStore.isLoggedIn(data.email);
+    // console.log(loginStatus);
+    // if (loginStatus < 0) {
+    //   alert("Log In First");
+    //   return loginStatus;
+    // }
 
-    const token = localStore.getAuthToken(loginStatus);
-    const response = await request.put(logoutURL, {
-      headers: { authorization: token },
-    });
+    const token = localStore.getAuthToken(id);
+    // console.log(token);
+    const response = await request.put(
+      logoutURL,
+      {},
+      {
+        headers: { authorization: token },
+      }
+    );
     const resData = response.data;
 
-    localStore.removeAuthToken(loginStatus);
-    localStore.removeAccountData(loginStatus);
+    localStore.removeAuthToken(id);
+    localStore.removeAccountData(id);
 
     return resData;
   } catch (error) {
