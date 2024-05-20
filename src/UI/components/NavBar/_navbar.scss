@@ -4,9 +4,8 @@
   right: 0;
   width: clamp(3rem, 10%, 5rem);
   aspect-ratio: 1;
-  //   border: 2px solid red;
   z-index: 100;
-  border-radius: 0% 0% 0% 70%;
+  border-radius: 50% 0% 50% 70%;
   transition: 0.5s ease-out;
 
   background-color: rgba(0, 0, 0, 0.5);
@@ -21,9 +20,9 @@
     width: 100%;
     max-width: 6rem;
     aspect-ratio: 1;
-    background-color: aqua;
+    background-color: crimson;
     border-radius: 50% 0% 50% 50%;
-    border-radius: 0% 0% 0% 70%;
+    border-radius: 40% 0% 40% 70%;
   }
 
   &__nav {

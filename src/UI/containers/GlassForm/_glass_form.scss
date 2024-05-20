@@ -7,16 +7,24 @@
   overflow-y: scroll;
   background-color: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   animation: glassform-scaleup 0.5s linear;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 20px 20px 20px 25px;
+  padding: 20px;
+  padding-left: 25px;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   outline: 2px solid rgba(255, 255, 255, 0.2);
   outline-offset: -9px;
+
+  @include screenXS {
+    width: 100%;
+  }
+  @include screenS {
+    width: 95%;
+  }
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -26,8 +34,9 @@
   }
 
   &__heading {
+    width: 100%;
     color: white;
-    padding: 1rem;
+    padding: 1rem 0rem;
     margin-bottom: 2rem;
     font-family: $font-orbitron;
     font-weight: 500;
@@ -35,6 +44,14 @@
     text-align: center;
     font-size: 2rem;
     letter-spacing: 2px;
+
+    @include screenXS {
+      font-size: 1.7rem;
+      line-height: 2.5rem;
+    }
+    @include screenS {
+      font-size: clamp(1.6rem, 5vw, 2rem);
+    }
 
     &::before {
       content: "";
@@ -49,13 +66,14 @@
       transform: translate(-50%);
       background-image: radial-gradient(circle, white, transparent);
       background-size: 2%;
-      width: 250%;
+      width: 100%;
       min-width: 20rem;
       max-width: 30rem;
     }
   }
   &__form {
-    width: 80%;
+    width: 95%;
+    max-width: 35rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,7 +81,19 @@
   }
 
   &__btn {
-    // margin: auto;
+    min-width: fit-content;
+    width: 50%;
+  }
+
+  &__text {
+    color: rgb(197, 197, 197);
+    text-align: center;
+    line-height: 3rem;
+  }
+
+  &__link {
+    color: crimson;
+    font-weight: 600;
   }
 }
 

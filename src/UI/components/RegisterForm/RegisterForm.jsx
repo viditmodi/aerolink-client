@@ -52,8 +52,11 @@ const RegisterForm = (props) => {
           Register
         </button>
       </form>
-      <p>
-        Already have account? <Link to={"/login"}>Login Here</Link>
+      <p className="glassform__text">
+        Already have account?{" "}
+        <Link to={"/login"} className="glassform__link">
+          Login Here
+        </Link>
       </p>
     </Fragment>
   );

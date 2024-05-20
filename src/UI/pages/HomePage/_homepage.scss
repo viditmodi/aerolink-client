@@ -1,39 +1,65 @@
 .homepage {
-  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   width: 100%;
   align-items: center;
-  //   background-color: aqua;
-  //   border: 2px solid rgb(255, 0, 0);
 
   &__title {
+    // font-size: clamp(8rem, 15vw, 9rem);
     font-size: 8rem;
-    letter-spacing: 2px;
-    // margin-bottom: 1rem;
+    letter-spacing: 5px;
+    color: white;
+
+    @include screenXS {
+      font-size: clamp(3.5rem, 15vw, 4.5rem);
+      margin-bottom: 1rem;
+    }
+    @include screenS {
+      font-size: clamp(5rem, 16vw, 7rem);
+    }
   }
   &__tagline {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 400;
-    letter-spacing: 2px;
-    word-spacing: 7px;
+    letter-spacing: 0.3rem;
+    word-spacing: 0.5rem;
     margin-bottom: 3rem;
     text-transform: capitalize;
+    color: rgba(255, 255, 255, 0.6);
+
+    @include screenXS {
+      font-size: clamp(0.5rem, 4vw, 1.2rem);
+      text-align: center;
+      line-height: clamp(0.75rem, 6vw, 1.8rem);
+    }
+    @include screenS {
+      font-size: 1.5rem;
+      text-align: center;
+      line-height: 2.25rem;
+    }
   }
 
   &__btns {
     width: 100%;
     max-width: 40rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 50% 50%;
     gap: 1rem;
+
+    @include screenXS {
+      width: 90%;
+      grid-template-columns: 100%;
+    }
+    @include screenS {
+      width: 90%;
+      grid-template-columns: 100%;
+    }
   }
 
   &__btn {
     min-width: fit-content;
     width: 100%;
-    // padding: 7px 15px;
   }
 }

@@ -43,9 +43,8 @@ const DashboardPage = () => {
               </button>
             </div>
             <div className="dashboard__card__stats">
-              <p className="dashboard__card__text">
-                Available Credits <br /> <span>{accountData.credit}</span>
-              </p>
+              <p className="dashboard__card__text">Available Credits</p>
+              <span>{accountData.credit}</span>
             </div>
           </div>
           <div className="dashboard__stats">
@@ -58,70 +57,6 @@ const DashboardPage = () => {
             })}
           </div>
           <div className="dashboard__apps">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab expedita
-            cupiditate optio harum velit adipisci dolores magni, laboriosam sed
-            repudiandae accusamus, eligendi est ipsum quaerat quos animi hic.
-            Tempora porro, expedita deserunt earum, voluptatibus voluptate
-            sapiente labore atque ducimus praesentium dolor excepturi molestias
-            animi, fugit qui ipsa odio deleniti tenetur laudantium repellendus
-            rem alias quas! Necessitatibus aspernatur laborum in quis cumque ut
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab expedita
-            cupiditate optio harum velit adipisci dolores magni, laboriosam sed
-            repudiandae accusamus, eligendi est ipsum quaerat quos animi hic.
-            Tempora porro, expedita deserunt earum, voluptatibus voluptate
-            sapiente labore atque ducimus praesentium dolor excepturi molestias
-            animi, fugit qui ipsa odio deleniti tenetur laudantium repellendus
-            rem alias quas! Necessitatibus aspernatur laborum in quis cumque
-            utLorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-            expedita cupiditate optio harum velit adipisci dolores magni,
-            laboriosam sed repudiandae accusamus, eligendi est ipsum quaerat
-            quos animi hic. Tempora porro, expedita deserunt earum, voluptatibus
-            voluptate sapiente labore atque ducimus praesentium dolor excepturi
-            molestias animi, fugit qui ipsa odio deleniti tenetur laudantium
-            repellendus rem alias quas! Necessitatibus aspernatur laborum in
-            quis cumque utLorem ipsum dolor sit amet consectetur adipisicing
-            elit. Ab expedita cupiditate optio harum velit adipisci dolores
-            magni, laboriosam sed repudiandae accusamus, eligendi est ipsum
-            quaerat quos animi hic. Tempora porro, expedita deserunt earum,
-            voluptatibus voluptate sapiente labore atque ducimus praesentium
-            dolor excepturi molestias animi, fugit qui ipsa odio deleniti
-            tenetur laudantium repellendus rem alias quas! Necessitatibus
-            aspernatur laborum in quis cumque utLorem ipsum dolor sit amet
-            consectetur adipisicing elit. Ab expedita cupiditate optio harum
-            velit adipisci dolores magni, laboriosam sed repudiandae accusamus,
-            eligendi est ipsum quaerat quos animi hic. Tempora porro, expedita
-            deserunt earum, voluptatibus voluptate sapiente labore atque ducimus
-            praesentium dolor excepturi molestias animi, fugit qui ipsa odio
-            deleniti tenetur laudantium repellendus rem alias quas!
-            Necessitatibus aspernatur laborum in quis cumque utLorem ipsum dolor
-            sit amet consectetur adipisicing elit. Ab expedita cupiditate optio
-            harum velit adipisci dolores magni, laboriosam sed repudiandae
-            accusamus, eligendi est ipsum quaerat quos animi hic. Tempora porro,
-            expedita deserunt earum, voluptatibus voluptate sapiente labore
-            atque ducimus praesentium dolor excepturi molestias animi, fugit qui
-            ipsa odio deleniti tenetur laudantium repellendus rem alias quas!
-            Necessitatibus aspernatur laborum in quis cumque utLorem ipsum dolor
-            sit amet consectetur adipisicing elit. Ab expedita cupiditate optio
-            harum velit adipisci dolores magni, laboriosam sed repudiandae
-            accusamus, eligendi est ipsum quaerat quos animi hic. Tempora porro,
-            expedita deserunt earum, voluptatibus voluptate sapiente labore
-            atque ducimus praesentium dolor excepturi molestias animi, fugit qui
-            ipsa odio deleniti tenetur laudantium repellendus rem alias quas!
-            Necessitatibus aspernatur laborum in quis cumque utLorem ipsum dolor
-            sit amet consectetur adipisicing elit. Ab expedita cupiditate optio
-            harum velit adipisci dolores magni, laboriosam sed repudiandae
-            accusamus, eligendi est ipsum quaerat quos animi hic. Tempora porro,
-            expedita deserunt earum, voluptatibus voluptate sapiente labore
-            atque ducimus praesentium dolor excepturi molestias animi, fugit qui
-            ipsa odio deleniti tenetur laudantium repellendus rem alias quas!
-            Necessitatibus aspernatur laborum in quis cumque utLorem ipsum dolor
-            sit amet consectetur adipisicing elit. Ab expedita cupiditate optio
-            harum velit adipisci dolores magni, laboriosam sed repudiandae
-            accusamus, eligendi est ipsum quaerat quos animi hic. Tempora porro,
-            expedita deserunt earum, voluptatibus voluptate sapiente labore
-            atque ducimus praesentium dolor excepturi molestias animi, fugit qui
-            ipsa odio deleniti tenetur laudantium repellendus rem alias quas!
-            Necessitatibus aspernatur laborum in quis cumque utLorem ipsum dolor
             sit amet consectetur adipisicing elit. Ab expedita cupiditate optio
             harum velit adipisci dolores magni, laboriosam sed repudiandae
             accusamus, eligendi est ipsum quaerat quos animi hic. Tempora porro,

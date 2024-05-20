@@ -17,7 +17,9 @@ const HomePage = (props) => {
     return (
       <div className="homepage">
         <h1 className="homepage__title title">AeroLink</h1>
-        <h3 className="homepage__tagline">One stop link to innovation</h3>
+        <h3 className="homepage__tagline">
+          Seamless Access, Infinite Possibilities
+        </h3>
         <div className="homepage__btns">
           <Link to={"/login"}>
             <button className="btn homepage__btn shadow3d-btn shadow3d-btn--focus">

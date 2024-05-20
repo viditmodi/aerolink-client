@@ -70,7 +70,7 @@ const NavBar = () => {
               </Link>
             </li>
           )}
-          {ctx.currentId >= 0 && (
+          {/* {ctx.currentId >= 0 && (
             <li className="navbar__list__item" onClick={hideMenu}>
               <Link
                 to={`/${ctx.currentId}/logout/all`}
@@ -79,10 +79,13 @@ const NavBar = () => {
                 Logout from All Devices
               </Link>
             </li>
-          )}
+          )} */}
         </ul>
       </nav>
-      <button onClick={isVisible ? hideMenu : showMenu} className="navbar__btn">
+      <button
+        onClick={isVisible ? hideMenu : showMenu}
+        className="navbar__btn btn "
+      >
         M
       </button>
     </div>

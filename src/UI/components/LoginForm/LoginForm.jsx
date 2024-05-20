@@ -58,8 +58,11 @@ const LoginForm = (props) => {
           Login
         </button>
       </form>
-      <p>
-        New to AeroLink? <Link to={"/register"}>Register Now</Link>
+      <p className="glassform__text">
+        New to AeroLink?{" "}
+        <Link to={"/register"} className="glassform__link">
+          Register Now
+        </Link>
       </p>
     </Fragment>
   );

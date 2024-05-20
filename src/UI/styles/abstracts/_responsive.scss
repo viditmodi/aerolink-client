@@ -4,28 +4,34 @@
 // Tabs --- 769px - 1024px
 // Desktop --- 1025px - 1920px
 // Large Screens --- Default CSS styles
-$breakpoint-mobile-small: 360px;
-$breakpoint-mobile: 768px;
-$breakpoint-tab: 1024px;
-$breakpoint-desktop: 1920px;
+$breakpoint-extra-small: 300px;
+$breakpoint-small: 450px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 1024px;
+$breakpoint-extra-large: 1920px;
 
-@mixin mobile-small {
-  @media screen and (min-width: 0px) and (max-width: $breakpoint-mobile-small) {
+@mixin screenXS {
+  @media screen and (min-width: 0px) and (max-width: $breakpoint-extra-small) {
     @content;
   }
 }
-@mixin mobile {
-  @media screen and (min-width: calc($breakpoint-mobile-small + 1px)) and (max-width: $breakpoint-mobile) {
+@mixin screenS {
+  @media screen and (min-width: calc($breakpoint-extra-small + 1px)) and (max-width: $breakpoint-small) {
     @content;
   }
 }
-@mixin tab {
-  @media screen and (min-width: calc($breakpoint-mobile + 1px)) and (max-width: $breakpoint-tab) {
+@mixin screenM {
+  @media screen and (min-width: calc($breakpoint-small + 1px)) and (max-width: $breakpoint-medium) {
     @content;
   }
 }
-@mixin desktop {
-  @media screen and (min-width: calc($breakpoint-tab + 1px)) and (max-width: $breakpoint-desktop) {
+@mixin screenL {
+  @media screen and (min-width: calc($breakpoint-medium + 1px)) and (max-width: $breakpoint-large) {
+    @content;
+  }
+}
+@mixin screenXL {
+  @media screen and (min-width: calc($breakpoint-large + 1px)) and (max-width: $breakpoint-extra-large) {
     @content;
   }
 }
