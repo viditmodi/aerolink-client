@@ -23,7 +23,7 @@ const RegisterForm = (props) => {
       const data = { email: trimmedEmail };
 
       const res = await createNewAccount(data);
-      // console.log(res);
+      console.log(res);
       if (res.status) {
         navigate("/login");
       }
