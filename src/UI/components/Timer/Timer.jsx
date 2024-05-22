@@ -18,8 +18,8 @@ const Timer = (props) => {
     };
   }, [time]);
   return (
-    <div>
-      <p>{time}</p>
+    <div className="timer">
+      <p className="timer__text">{time}</p>
     </div>
   );
 };

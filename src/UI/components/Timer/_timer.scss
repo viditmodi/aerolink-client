@@ -1,0 +1,19 @@
+.timer {
+  width: 75%;
+  max-width: 13rem;
+  aspect-ratio: 1;
+  margin: 2rem;
+
+  &__text {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid white;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+  }
+}

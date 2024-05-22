@@ -10,14 +10,13 @@ const NavBar = () => {
   const showMenu = () => {
     const navBarContainer = document.getElementById("navBarContainer");
     navBarContainer.style.width = "100vmin";
-    // navBarContainer.style.height = "100svh";
-    // console.log("open");
+    navBarContainer.style.borderRadius = "0rem";
     setIsVisible(true);
   };
   const hideMenu = () => {
     const navBarContainer = document.getElementById("navBarContainer");
-    navBarContainer.style.width = "clamp(3rem, 10%, 6rem)";
-    // console.log("close");
+    navBarContainer.style.width = "clamp(2rem, 10%, 5rem)";
+    navBarContainer.style.borderRadius = "40% 0% 40% 70%";
     setIsVisible(false);
   };
   return (

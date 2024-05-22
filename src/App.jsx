@@ -10,7 +10,7 @@ function App() {
   const ctx = useContext(IdContext);
 
   useEffect(() => {
-    ctx.setCurrentId(localStore.getCurrentId());
+    ctx.setCurrentId(localStore.getCurrentId() || -1);
   }, []);
   return (
     <BrowserRouter>

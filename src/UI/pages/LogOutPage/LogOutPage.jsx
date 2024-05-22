@@ -2,12 +2,14 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Loader, Timer } from "../../components";
 import { logoutFromSingleAccount } from "../../../api/account.api";
 import localStore from "../../../config/localstorage.config";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import IdContext from "../../../context/IdContext/IdContext";
 
 const LogOutPage = (props) => {
   const ctx = useContext(IdContext);
   const navigate = useNavigate();
+
+  const [text, setText] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isCounting, setIsCounting] = useState(false);
@@ -21,11 +23,11 @@ const LogOutPage = (props) => {
     useEffect(() => {
       setIsLoading(true);
       if (props.type === "one") {
-        //   alert("one");
+        setText("Logging out from current account");
         logoutFromSingleAccount(id)
           .then((res) => {
-            setIsCounting(true);
             ctx.setCurrentId(-1);
+            setIsCounting(true);
           })
           .catch((error) => console.log(error));
       } else if (props.type === "all") {
@@ -37,7 +39,7 @@ const LogOutPage = (props) => {
     return (
       <Fragment>
         {isLoading && <Loader></Loader>}
-        <div>Loggin out</div>
+        <p className="logout__text">{text}</p>
         {isCounting && (
           <Timer
             function={() => {
@@ -45,6 +47,12 @@ const LogOutPage = (props) => {
             }}
           ></Timer>
         )}
+        <Link
+          to={"/switch"}
+          className="btn shadow3d-btn shadow3d-btn--dull logout__btn"
+        >
+          Choose another account
+        </Link>
       </Fragment>
     );
   } else {
