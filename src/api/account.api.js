@@ -8,11 +8,9 @@ const logoutURL = baseURL + "/account/logout";
 
 export const createNewAccount = async (data) => {
   try {
-    console.log(data);
     const response = await request.post(baseAccountURL, data);
-    console.log(response);
     const resData = response.data;
-    console.log(resData);
+    // console.log(resData)
     return resData;
   } catch (error) {
     console.log("Error: " + error.response.data.message);
