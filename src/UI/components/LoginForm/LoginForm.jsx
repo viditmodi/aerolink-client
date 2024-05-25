@@ -8,6 +8,8 @@ import IdContext from "../../../context/IdContext/IdContext";
 
 const LoginForm = (props) => {
   const ctx = useContext(IdContext);
+  const queryParams = new URLSearchParams(window.location.search);
+  const redirect = queryParams.get("r");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -24,7 +26,13 @@ const LoginForm = (props) => {
       if (index >= 0) {
         ctx.setCurrentId(index);
         localStore.saveCurrentId(index);
-        navigate(`/${index}/dashboard`);
+
+        if (redirect) {
+          window.location.replace(redirect);
+        } else {
+          navigate(`/${index}/dashboard`);
+        }
+        // navigate(`/${index}/dashboard`);
       }
 
       props.setIsLoading(false);
@@ -58,6 +66,11 @@ const LoginForm = (props) => {
           Login
         </button>
       </form>
+      <p className="glassform__text">
+        <Link to={"/password/reset"} className="glassform__link">
+          Forgot Password
+        </Link>
+      </p>
       <p className="glassform__text">
         New to AeroLink?{" "}
         <Link to={"/register"} className="glassform__link">

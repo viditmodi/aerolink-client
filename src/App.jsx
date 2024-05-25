@@ -1,7 +1,13 @@
 import { Fragment, useContext, useEffect } from "react";
 import "./UI/styles/styles.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Dashboard, HomePage, LogOutPage, SwitchPage } from "./UI/pages";
+import {
+  Dashboard,
+  HomePage,
+  LogOutPage,
+  PasswordPage,
+  SwitchPage,
+} from "./UI/pages";
 import { NavBar } from "./UI/components";
 import IdContext from "./context/IdContext/IdContext";
 import localStore from "./config/localstorage.config";
@@ -11,7 +17,7 @@ function App() {
 
   useEffect(() => {
     ctx.setCurrentId(localStore.getCurrentId() || -1);
-  }, []);
+  }, [ctx.currentId]);
   return (
     <BrowserRouter>
       {/* <h1>A great project in the making</h1> */}
@@ -37,6 +43,14 @@ function App() {
         ></Route> */}
 
         <Route path="/:id/dashboard" element={<Dashboard></Dashboard>}></Route>
+        <Route
+          path="/:id/password/change"
+          element={<PasswordPage type={"change"}></PasswordPage>}
+        ></Route>
+        <Route
+          path="/password/reset"
+          element={<PasswordPage type={"reset"}></PasswordPage>}
+        ></Route>
         <Route path="/switch" element={<SwitchPage></SwitchPage>}></Route>
 
         <Route path="*" element={<h1>404</h1>}></Route>

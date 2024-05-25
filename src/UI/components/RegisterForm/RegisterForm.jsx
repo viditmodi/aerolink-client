@@ -8,6 +8,8 @@ import { createNewAccount } from "../../../api/account.api";
 
 const RegisterForm = (props) => {
   const [email, setEmail] = useState("");
+  const queryParams = new URLSearchParams(window.location.search);
+  const redirect = queryParams.get("r");
   const navigate = useNavigate();
 
   const registerUser = async (e) => {
@@ -25,7 +27,11 @@ const RegisterForm = (props) => {
       const res = await createNewAccount(data);
       // console.log(res);
       if (res.status) {
-        navigate("/login");
+        if (redirect) {
+          navigate(`/login?r=${redirect}`);
+        } else {
+          navigate(`/login`);
+        }
       }
       props.setIsLoading(false);
     } catch (error) {

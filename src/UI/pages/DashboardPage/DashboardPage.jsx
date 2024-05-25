@@ -4,8 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CreditCard, Loader, UpdateForm } from "../../components";
 import { GlassForm } from "../../containers";
 import editIcon from "../../../assets/icons/edit.png";
-import { BulbLabelTextBox } from "../../blocks";
-import REGEX from "../../../data/REGEX.constant";
 import IdContext from "../../../context/IdContext/IdContext";
 
 const DashboardPage = () => {
@@ -16,6 +14,7 @@ const DashboardPage = () => {
 
   const [update, setUpdate] = useState(false);
   useEffect(() => {
+    localStore.saveCurrentId(id);
     ctx.setCurrentId(id);
   }, []);
   useEffect(() => {
@@ -68,6 +67,14 @@ const DashboardPage = () => {
         </div>
         {update && (
           <div className="dashboard__update">
+            <button
+              className="dashboard__update__btn btn"
+              onClick={() => {
+                setUpdate(false);
+              }}
+            >
+              X
+            </button>
             <GlassForm heading={"Update Form"}>
               <UpdateForm
                 setIsLoading={setIsLoading}
@@ -82,6 +89,8 @@ const DashboardPage = () => {
   } else {
     const navigate = useNavigate();
     useEffect(() => {
+      localStore.removeCurrentId();
+      ctx.setCurrentId(-1);
       navigate("/switch");
     }, []);
     return (

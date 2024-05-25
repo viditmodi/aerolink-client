@@ -1,4 +1,5 @@
 .loader {
+  $color: rgb(198, 232, 255);
   position: fixed;
   //   top: 0;
   inset: 0 0 0 0;
@@ -10,4 +11,65 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &__container {
+    width: 100%;
+    max-width: 30rem;
+    aspect-ratio: 1;
+    // border: 1px solid white;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: perspective(1000px) rotateY(45deg) rotateX(45deg);
+    animation: loader-rotate 5s linear infinite alternate;
+    // opacity: 0.5;
+    // transform: perspective(1000px);
+  }
+
+  &__circle {
+    // width: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    border-radius: 500rem;
+    aspect-ratio: 1;
+    animation-name: spin;
+    animation-timing-function: linear;
+    // animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    $width: 5%;
+    $time: 10s;
+    background-color: rgba($color, 0.05);
+
+    &:nth-child(even) {
+      border: 2px dashed rgba($color, 0.5);
+    }
+    &:nth-child(odd) {
+      border: 2px solid $color;
+    }
+
+    @for $i from 1 through 15 {
+      &:nth-child(#{$i}) {
+        width: (1 + $i) * $width;
+        animation-duration: calc($time / (16 - $i));
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
+}
+@keyframes loader-rotate {
+  0% {
+    transform: perspective(1000px) rotateY(45deg) rotateX(45deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(-45deg) rotateX(-45deg);
+  }
 }

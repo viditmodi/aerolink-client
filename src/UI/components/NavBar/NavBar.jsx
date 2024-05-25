@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import localStore from "../../../config/localstorage.config";
 import IdContext from "../../../context/IdContext/IdContext";
@@ -7,6 +7,7 @@ const NavBar = () => {
   const ctx = useContext(IdContext);
   const [isVisible, setIsVisible] = useState(false);
   const numLoggedInAccounts = localStore.doesAccountExist();
+  useEffect(() => {}, [ctx.currentId]);
   const showMenu = () => {
     const navBarContainer = document.getElementById("navBarContainer");
     navBarContainer.style.width = "100vmin";
@@ -56,6 +57,16 @@ const NavBar = () => {
                 className="navbar__list__link"
               >
                 Dashboard
+              </Link>
+            </li>
+          )}
+          {ctx.currentId >= 0 && (
+            <li className="navbar__list__item" onClick={hideMenu}>
+              <Link
+                to={`/${ctx.currentId}/password/change`}
+                className="navbar__list__link"
+              >
+                Change Password
               </Link>
             </li>
           )}

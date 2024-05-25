@@ -27,13 +27,17 @@ const LogOutPage = (props) => {
         logoutFromSingleAccount(id)
           .then((res) => {
             ctx.setCurrentId(-1);
+            localStore.removeCurrentId();
             setIsCounting(true);
+            setIsLoading(false);
           })
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            console.log(error);
+            setIsLoading(false);
+          });
       } else if (props.type === "all") {
         //   alert("all");
       }
-      setIsLoading(false);
     }, [props.type]);
 
     return (
@@ -57,6 +61,8 @@ const LogOutPage = (props) => {
     );
   } else {
     useEffect(() => {
+      localStore.removeCurrentId();
+      ctx.setCurrentId(-1);
       navigate("/switch");
     }, []);
     return (
