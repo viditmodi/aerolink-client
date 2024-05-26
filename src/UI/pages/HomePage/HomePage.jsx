@@ -4,6 +4,7 @@ import { GlassForm } from "../../containers";
 import { Loader, LoginForm, RegisterForm } from "../../components";
 // import localStore from "../../../config/localstorage.config";
 import IdContext from "../../../context/IdContext/IdContext";
+import { setPageTitle } from "../../../functions/document.functions";
 
 const HomePage = (props) => {
   const ctx = useContext(IdContext);
@@ -14,6 +15,7 @@ const HomePage = (props) => {
     return <Loader></Loader>;
   }
   if (props.page === "home") {
+    setPageTitle("Home | AeroLink");
     return (
       <div className="homepage">
         <h1 className="homepage__title title">AeroLink</h1>
@@ -35,12 +37,18 @@ const HomePage = (props) => {
       </div>
     );
   } else if (props.page === "login") {
+    setPageTitle(
+      `${currentId < 0 ? "Login" : "Add Another Account"} | AeroLink`
+    );
     return (
       <GlassForm heading={currentId < 0 ? "Login" : "Add Another Account"}>
         <LoginForm setIsLoading={setIsLoading}></LoginForm>
       </GlassForm>
     );
   } else if (props.page === "register") {
+    setPageTitle(
+      `${currentId < 0 ? "Register" : "Create New Account"} | AeroLink`
+    );
     return (
       <GlassForm heading={currentId < 0 ? "Register" : "Create New Account"}>
         <RegisterForm setIsLoading={setIsLoading}></RegisterForm>

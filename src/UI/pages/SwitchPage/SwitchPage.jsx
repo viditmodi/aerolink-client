@@ -4,6 +4,7 @@ import IdContext from "../../../context/IdContext/IdContext";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteAccountRequest } from "../../../api/account.api";
 import { Loader } from "../../components";
+import { setPageTitle } from "../../../functions/document.functions";
 
 const SwitchPage = () => {
   const ctx = useContext(IdContext);
@@ -16,6 +17,7 @@ const SwitchPage = () => {
   );
   useEffect(() => {
     setAccountArray(localStore.getAllAccountsData());
+    setPageTitle("Switch Account | AeroLink");
     // console.log(?)
   }, []);
 

@@ -4,6 +4,7 @@ import { logoutFromSingleAccount } from "../../../api/account.api";
 import localStore from "../../../config/localstorage.config";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import IdContext from "../../../context/IdContext/IdContext";
+import { setPageTitle } from "../../../functions/document.functions";
 
 const LogOutPage = (props) => {
   const ctx = useContext(IdContext);
@@ -18,6 +19,7 @@ const LogOutPage = (props) => {
   useEffect(() => {
     const data = localStore.getAccountData(id);
     setAccountData(data);
+    setPageTitle("Logging out " + data.email + " | AeroLink");
   }, []);
   if (accountData) {
     useEffect(() => {

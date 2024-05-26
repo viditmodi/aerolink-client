@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { GlassForm } from "../../containers";
 import { BulbLabelTextBox } from "../../blocks";
 import REGEX from "../../../data/REGEX.constant";
@@ -10,6 +10,8 @@ import {
   resetPasswordRequest,
   verifyOTPRequest,
 } from "../../../api/account.api";
+import { setPageTitle } from "../../../functions/document.functions";
+import IdContext from "../../../context/IdContext/IdContext";
 
 const PasswordPage = (props) => {
   const type = props.type;
@@ -32,8 +34,10 @@ const PasswordPage = (props) => {
       const accountData = localStore.getAccountData(id);
       setEmail(accountData.email);
       setHeading("Change Password");
+      setPageTitle("Change Password | AeroLink");
     } else if (type === "reset") {
       setHeading("Reset Password");
+      setPageTitle("Reset Password | AeroLink");
     }
   }, []);
 
@@ -88,19 +92,20 @@ const PasswordPage = (props) => {
     }
   };
 
-  if (type === "change" && !email) {
-    const navigate = useNavigate();
-    useEffect(() => {
-      localStore.removeCurrentId();
-      ctx.setCurrentId(-1);
-      navigate("/switch");
-    }, []);
-    return (
-      <div>
-        <h1>Account Information Not Found</h1>
-      </div>
-    );
-  }
+  // if (type === "change" && !email) {
+  //   const navigate = useNavigate();
+  //   const ctx = useContext(IdContext);
+  //   useEffect(() => {
+  //     localStore.removeCurrentId();
+  //     ctx.setCurrentId(-1);
+  //     navigate("/switch");
+  //   }, []);
+  //   return (
+  //     <div>
+  //       <h1>Account Information Not Found</h1>
+  //     </div>
+  //   );
+  // }
   return (
     <Fragment>
       <GlassForm heading={`${heading}`}>

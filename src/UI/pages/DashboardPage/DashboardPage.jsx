@@ -5,6 +5,7 @@ import { CreditCard, Loader, UpdateForm } from "../../components";
 import { GlassForm } from "../../containers";
 import editIcon from "../../../assets/icons/edit.png";
 import IdContext from "../../../context/IdContext/IdContext";
+import { setPageTitle } from "../../../functions/document.functions";
 
 const DashboardPage = () => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const data = localStore.getAccountData(id);
     setAccountData(data);
+    setPageTitle(`Dashboard | ${data.email} | AeroLink`);
   }, [update]);
 
   if (isLoading) {
