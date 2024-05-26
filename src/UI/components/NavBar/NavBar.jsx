@@ -27,7 +27,8 @@ const NavBar = () => {
           {/* home */}
           <li className="navbar__list__item" onClick={hideMenu}>
             <Link to={"/"} className="navbar__list__link">
-              Home {ctx.currentId}
+              Home
+              {/* {ctx.currentId} */}
             </Link>
           </li>
           {/* login */}
