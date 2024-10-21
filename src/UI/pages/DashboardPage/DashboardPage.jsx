@@ -28,10 +28,11 @@ const DashboardPage = () => {
     return <Loader></Loader>;
   }
   if (accountData) {
+    window.addEventListener("resize", () => {});
     return (
       <Fragment>
         <div className="dashboard wrapper scrollbar">
-          <div className="dashboard__card">
+          <div className="dashboard__left">
             <div className="dashboard__creditcard">
               <CreditCard data={accountData} />
               <button
@@ -43,20 +44,21 @@ const DashboardPage = () => {
                 <img src={editIcon} alt="" />
               </button>
             </div>
-            <div className="dashboard__card__stats">
+            <div className="dashboard__stats">
               <p className="dashboard__card__text">Available Credits</p>
               <span>{accountData.credit}</span>
             </div>
           </div>
-          <div className="dashboard__stats">
+          {/* <div className="dashboard__stats">
             {Object.keys(accountData).map((data) => {
+              console.log(data);
               return (
                 <p>
                   {data}: {accountData[data]}
                 </p>
               );
             })}
-          </div>
+          </div> */}
           <div className="dashboard__apps">
             sit amet consectetur adipisicing elit. Ab expedita cupiditate optio
             harum velit adipisci dolores magni, laboriosam sed repudiandae

@@ -1,5 +1,8 @@
 import request from "../config/axios.config";
 import localStore from "../config/localstorage.config";
+import REGEX from "../data/REGEX.constant";
+import LogicHandler from "../functions/logic.handlers";
+import { Validation } from "../helpers";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 const baseAccountURL = baseURL + "/account/";
@@ -8,42 +11,60 @@ const logoutURL = baseURL + "/account/logout";
 const otpURL = baseURL + "/account/otp?query=";
 const passwordURL = baseURL + "/account/password?query=";
 
-export const createNewAccount = async (data) => {
-  try {
-    const response = await request.post(baseAccountURL, data);
+class HttpRequest {
+  static createAccount = async ({ email }) => {
+    const data = {};
+    // Try - Validations
+    await LogicHandler.clientSide(() => {
+      Validation.isValidEmail(email);
+      data.email = email;
+    });
+    // Try - HttpRequest
+    let response = null;
+    await LogicHandler.serverSide(async () => {
+      response = await request.post(baseAccountURL, data);
+    });
     const resData = response.data;
-    // console.log(resData)
+    console.log(resData.message);
     return resData;
-  } catch (error) {
-    console.log("Error: " + error.response.data.message);
-    return error.response.data;
-  }
-};
-export const logInToAccount = async (data) => {
-  try {
-    const loginStatus = localStore.isLoggedIn(data.email);
-    // console.log(loginStatus);
-    if (loginStatus >= 0) {
-      alert("Already Logged In");
-      return loginStatus;
+  };
+
+  static logIntoAccount = async ({ query, password }) => {
+    let returnData = null;
+    const data = {};
+    await LogicHandler.clientSide(() => {
+      // Check: Check if already logged in
+      const loginIndex = localStore.isLoggedIn(query);
+
+      if (loginIndex >= 0) {
+        // alert("Already Logged In");
+        returnData = { newLogin: false, index: loginIndex };
+      }
+
+      Validation.isValidEmail(query);
+      data.query = query;
+      data.password = password;
+    });
+    if (returnData) {
+      return returnData;
     }
-    const response = await request.post(loginURL, data);
+    let response = null;
+    await LogicHandler.serverSide(async () => {
+      console.log(data);
+      response = await request.post(loginURL, data);
+    });
     const resData = response.data;
-    // console.log(resData);
-    if (resData.status) {
-      const tokenIndex = localStore.addAuthToken(resData.authToken);
-      const dataIndex = localStore.addAccountData(resData.data);
+    // TODO: Merge both functions
+    const tokenIndex = localStore.addAuthToken(resData.authToken);
+    const dataIndex = localStore.addAccountData(resData.data);
 
-      // console.log(localStore.getAllAuthTokens());
-
-      return dataIndex;
-    }
-    return -1;
-  } catch (error) {
-    console.log("Error: " + error.response.data.message);
-    return error.response.data;
-  }
-};
+    returnData = {
+      newLogin: true,
+      index: dataIndex,
+    };
+    return returnData;
+  };
+}
 export const updateExistingAccount = async (data) => {
   try {
     // console.log(data);
@@ -166,3 +187,5 @@ export const resetPasswordRequest = async (email) => {
     return error.response.data;
   }
 };
+
+export default HttpRequest;

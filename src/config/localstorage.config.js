@@ -1,4 +1,35 @@
+const LOCAL_STORAGE_KEYWORDS = {
+  ALL_ACCOUNTS: "aerolink_accountsdata",
+  ALL_ACCOUNTS_ARRAY: "aerolink_login_data",
+  ALL_AUTH_TOKENS: "aerolink_authtokens",
+};
 class LocalStorage {
+  constructor() {
+    if (!localStorage.getItem(LOCAL_STORAGE_KEYWORDS.ALL_ACCOUNTS_ARRAY)) {
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYWORDS.ALL_ACCOUNTS_ARRAY,
+        JSON.stringify([])
+      );
+    }
+  }
+  // NEW FUNCTIONS
+  static getAllAccounts = () => {
+    return JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEYWORDS.ALL_ACCOUNTS_ARRAY)
+    );
+  };
+
+  static getLoginIndex = (email) => {
+    const accounts = this.getAllAccounts();
+    for (let i = 0; i < accounts.length; i++) {
+      if (accounts[i].email === email) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
+  // OLD FUNCTIONS
   saveCurrentId(id) {
     sessionStorage.setItem("aerolink__currentid", id);
   }
@@ -6,7 +37,8 @@ class LocalStorage {
     sessionStorage.removeItem("aerolink__currentid");
   }
   getCurrentId() {
-    return sessionStorage.getItem("aerolink__currentid");
+    const id = sessionStorage.getItem("aerolink__currentid");
+    return id ? id : -1;
   }
   doesAccountExist() {
     this.checkExistence();
@@ -15,15 +47,23 @@ class LocalStorage {
     return accounts?.length;
   }
   checkExistence() {
-    if (!localStorage.getItem("aerolink_accountsdata")) {
-      localStorage.setItem("aerolink_accountsdata", JSON.stringify([]));
+    if (!localStorage.getItem(LOCAL_STORAGE_KEYWORDS.ALL_ACCOUNTS)) {
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYWORDS.ALL_ACCOUNTS,
+        JSON.stringify([])
+      );
     }
-    if (!localStorage.getItem("aerolink_authtokens")) {
-      localStorage.setItem("aerolink_authtokens", JSON.stringify([]));
+    if (!localStorage.getItem(LOCAL_STORAGE_KEYWORDS.ALL_AUTH_TOKENS)) {
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYWORDS.ALL_AUTH_TOKENS,
+        JSON.stringify([])
+      );
     }
   }
   isLoggedIn(email) {
-    const accounts = this.getAllAccountsData();
+    const accounts = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEYWORDS.ALL_ACCOUNTS)
+    );
     for (let i = 0; i < accounts.length; i++) {
       if (accounts[i].email === email) {
         return i;

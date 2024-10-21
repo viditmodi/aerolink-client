@@ -13,8 +13,7 @@ const HomePage = (props) => {
   const currentId = ctx.currentId;
   if (isLoading) {
     return <Loader></Loader>;
-  }
-  if (props.page === "home") {
+  } else if (props.page === "home") {
     setPageTitle("Home | AeroLink");
     return (
       <div className="homepage">

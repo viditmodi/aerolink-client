@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BulbLabelTextBox } from "../../blocks";
 import REGEX from "../../../data/REGEX.constant";
-import { logInToAccount } from "../../../api/account.api";
+import HttpRequest from "../../../api/account.api";
 import localStore from "../../../config/localstorage.config";
 import IdContext from "../../../context/IdContext/IdContext";
 
@@ -14,15 +14,29 @@ const LoginForm = (props) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  // Login Form Submit Handler
   const loginUser = async (e) => {
     props.setIsLoading(true);
     e.preventDefault();
-    try {
-      const trimmedEmail = email.replace(REGEX.WHITESPACE, "");
 
-      const data = { email: trimmedEmail, password: password };
-      const index = await logInToAccount(data);
-      console.log(index);
+    try {
+      console.log("Logging in");
+      // Request Handler
+
+      const { newLogin, index } = await HttpRequest.logIntoAccount({
+        query: email,
+        password: password,
+      });
+      console.log("Login Index: " + index);
+
+      //TODO: Confirm if he wishes to be redirected
+      //TODO: Else stay on the same page and allow another login
+      if (newLogin) {
+        alert("Logged in successfully. Do you want to visit dashboard?");
+      } else {
+        alert("Already Logged in. Do you want to visit dashboard?");
+      }
+
       if (index >= 0) {
         ctx.setCurrentId(index);
         localStore.saveCurrentId(index);
