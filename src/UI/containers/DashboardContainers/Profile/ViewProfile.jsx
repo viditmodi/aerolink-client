@@ -2,6 +2,14 @@ import React from "react";
 import { CreditCard } from "../../../components";
 
 const ViewProfile = (props) => {
+  let name = null;
+  if (props.account.first_name && props.account.last_name) {
+    name = `${props.account.first_name} ${
+      props.account.middle_name ? props.account.middle_name + " " : ""
+    }${props.account.last_name}`;
+  } else {
+    name = "Update Your Name";
+  }
   return (
     <div className="view-profile">
       <div className="view-profile__left view-profile__column">
@@ -11,7 +19,9 @@ const ViewProfile = (props) => {
               <td className="view-profile__table__data view-profile__table__data--heading">
                 Name
               </td>
-              <td className="view-profile__table__data view-profile__table__data--value">{`${props.account.first_name} ${props.account.last_name}`}</td>
+              <td className="view-profile__table__data view-profile__table__data--value">
+                {name}
+              </td>
             </tr>
             <tr className="view-profile__table__row">
               <td className="view-profile__table__data view-profile__table__data--heading">
@@ -23,7 +33,11 @@ const ViewProfile = (props) => {
               <td className="view-profile__table__data view-profile__table__data--heading">
                 Phone
               </td>
-              <td className="view-profile__table__data view-profile__table__data--value">{`${props.account.phone}`}</td>
+              <td className="view-profile__table__data view-profile__table__data--value">
+                {props.account.phone
+                  ? `${props.account.phone}`
+                  : "Update Your Contact"}
+              </td>
             </tr>
             <tr className="view-profile__table__row">
               <td className="view-profile__table__data view-profile__table__data--heading">
