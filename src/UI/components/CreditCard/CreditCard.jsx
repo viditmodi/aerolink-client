@@ -2,16 +2,9 @@ import React from "react";
 import aerolinkLogo from "../../../assets/logos/AeroLink.png";
 import { formatName } from "../../../functions/name.functions";
 const CreditCard = (props) => {
+  // console.log(props.data);
   return (
     <div className="creditcard">
-      {/* {Object.keys(props.data).map((data) => {
-        return (
-          <p>
-            {data}: {props.data[data]}
-          </p>
-        );
-      })} */}
-
       <div className="creditcard__top">
         <div className="creditcard__webname">
           <div className="creditcard__logo">
@@ -27,10 +20,10 @@ const CreditCard = (props) => {
 
       <div className="creditcard__bottom">
         <div className="creditcard__cardnumber creditcard__text">
-          {`${props.data.user_id.slice(0, 4)} ${props.data.user_id.slice(
+          {`${props.data.user_id?.slice(0, 4)} ${props.data.user_id?.slice(
             4,
             8
-          )} ${props.data.user_id.slice(8, 12)} ${props.data.user_id.slice(
+          )} ${props.data.user_id?.slice(8, 12)} ${props.data.user_id?.slice(
             12,
             16
           )}`}

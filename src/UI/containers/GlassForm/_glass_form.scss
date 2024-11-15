@@ -1,43 +1,152 @@
-.glassform {
+// .glassform {
+//   width: 90%;
+//   max-width: 50rem;
+//   aspect-ratio: 1;
+//   border-radius: 50%
+
+//   // min-height: 30rem;
+//   // height: fit-content;
+//   // max-height: 90svh;
+//   overflow-y: scroll;
+//   background-color: rgba(255, 255, 255, 0.03);
+//   backdrop-filter: blur(5px);
+//   border: 1px solid rgba(255, 255, 255, 0.2);
+//   animation: glassform-scaleup 0.5s linear;
+//   position: relative;
+//   padding: 20px;
+//   padding-left: 25px;
+//   // border-radius: 1rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   outline: 2px solid rgba(255, 255, 255, 0.2);
+//   outline-offset: -9px;
+
+//   @include screenXS {
+//     width: 100%;
+//   }
+//   @include screenS {
+//     width: 95%;
+//   }
+
+//   &__heading {
+
+//     @include screenXS {
+//       font-size: 1.7rem;
+//       line-height: 2.5rem;
+//     }
+//     @include screenS {
+//       font-size: clamp(1.6rem, 5vw, 2rem);
+//     }
+
+//   }
+//   &__form {
+//     width: 95%;
+//     max-width: 35rem;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     gap: 10px;
+//   }
+
+//
+
+//
+// }
+$color-border: rgba(255, 255, 255, 0.2);
+
+@mixin glass-scrollbar($width: 5px, $color: white) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 0%;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color, 0.1);
+    border-radius: 50rem;
+    border: 2px dashed rgba($color, 0.08);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba($color, 0.15);
+  }
+}
+
+@mixin border(
+  $color: white,
+  $width: 2px,
+  $top: true,
+  $right: true,
+  $bottom: true,
+  $left: true
+) {
+  outline: $width * 3 double $color;
+  outline-offset: -$width * 2;
+
+  @if $top {
+    border-top: $width * 2 dashed $color;
+  }
+  @if $bottom {
+    border-bottom: $width * 2 dashed $color;
+  }
+  @if $right {
+    border-right: $width * 2 dashed $color;
+  }
+  @if $left {
+    border-left: $width * 2 dashed $color;
+  }
+}
+.glass {
+  // Variables
+  $color: white;
+
+  $bw: 2px;
+
+  // Rules
   width: 90%;
   max-width: 50rem;
-  min-height: 30rem;
   height: fit-content;
-  max-height: 90svh;
-  overflow-y: scroll;
-  background-color: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  animation: glassform-scaleup 0.5s linear;
-  position: relative;
-  padding: 20px;
-  padding-left: 25px;
-  border-radius: 1rem;
+  // aspect-ratio: 1;
+  padding: 2rem;
+
+  @include glassmorphism($color: $color, $opacity: 0, $blur: 30px);
+  @include border(grey, 2px);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  outline: 2px solid rgba(255, 255, 255, 0.2);
-  outline-offset: -9px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px black, 0 0 10px black, 0 0 20px black;
 
-  @include screenXS {
-    width: 100%;
-  }
-  @include screenS {
-    width: 95%;
+  &--circle {
+    border-radius: 50%;
   }
 
-  &::-webkit-scrollbar {
-    width: 5px;
-    background-color: rgba(255, 255, 255, 0);
-    position: absolute;
-    right: -5px;
+  &__children {
+    flex: 1 1 auto;
+    // border: 2px solid;
+    width: 90%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    // aspect-ratio: 1;
+    $width: 0.5rem;
+    padding: 1rem;
+    padding-left: 1rem + $width;
+    @include glass-scrollbar();
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 5px;
   }
 
   &__heading {
-    width: 100%;
+    padding: 1rem;
     color: white;
-    padding: 1rem 0rem;
-    margin-bottom: 2rem;
     font-family: $font-orbitron;
     font-weight: 500;
     position: relative;
@@ -45,31 +154,20 @@
     font-size: 2rem;
     letter-spacing: 2px;
 
-    @include screenXS {
-      font-size: 1.7rem;
-      line-height: 2.5rem;
-    }
-    @include screenS {
-      font-size: clamp(1.6rem, 5vw, 2rem);
-    }
+    border: 4px double transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: 79%;
+    border-bottom: 4px double $color-border;
+    // height: 25%;
+    // border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+    // padding-top: 2rem;
+  }
 
-    &::before {
-      content: "";
-      position: absolute;
-      bottom: -0.5rem;
-      // background-color: white;
-      outline: 1px solid white;
-      border-radius: 500rem;
-      outline-offset: 3px;
-      height: 2px;
-      left: 50%;
-      transform: translate(-50%);
-      background-image: radial-gradient(circle, white, transparent);
-      background-size: 2%;
-      width: 100%;
-      min-width: 20rem;
-      max-width: 30rem;
-    }
+  &__btn {
+    min-width: fit-content;
+    width: 50%;
   }
   &__form {
     width: 95%;
@@ -78,11 +176,6 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-  }
-
-  &__btn {
-    min-width: fit-content;
-    width: 50%;
   }
 
   &__text {
@@ -97,11 +190,81 @@
   }
 }
 
+.glassform {
+  position: relative;
+  &::before {
+    $dist: 65%;
+    $opacity: 0.2;
+    content: " ";
+    position: absolute;
+    inset: -10%;
+    border: 4px solid rgb(255, 255, 255);
+    border-radius: inherit;
+    background: repeating-linear-gradient(
+        to right,
+        rgba(0, 0, 0, $opacity),
+        rgba(128, 128, 128, $opacity) 10%
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, $opacity),
+        rgba(128, 128, 128, $opacity) 10%
+      );
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(5px);
+    animation: glassform-rotate 240s linear infinite;
+  }
+
+  &__hr {
+    width: 100%;
+    // outline: 1px solid white;
+    // border-radius: 500rem;
+    // outline-offset: 2px;
+    height: 4px;
+    // background-image: radial-gradient(circle, white, transparent);
+    background-size: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: none;
+    border-left: none;
+  }
+
+  &__heading {
+    padding-bottom: 1rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -0.5rem;
+      // background-color: white;
+      outline: 1px solid white;
+      border-radius: 500rem;
+      outline-offset: 2px;
+      height: 1px;
+      left: 50%;
+      transform: translate(-50%);
+      background-image: radial-gradient(circle, white, transparent);
+      background-size: 3px;
+      width: 100%;
+      min-width: 20rem;
+      max-width: 30rem;
+    }
+  }
+}
+
 @keyframes glassform-scaleup {
   from {
     transform: scale(0);
   }
   to {
     transform: scale(1);
+  }
+}
+@keyframes glassform-rotate {
+  from {
+    rotate: 0;
+  }
+  to {
+    rotate: 360deg;
   }
 }

@@ -30,16 +30,16 @@ class LocalStorage {
   };
 
   // OLD FUNCTIONS
-  saveCurrentId(id) {
-    sessionStorage.setItem("aerolink__currentid", id);
-  }
-  removeCurrentId() {
-    sessionStorage.removeItem("aerolink__currentid");
-  }
-  getCurrentId() {
-    const id = sessionStorage.getItem("aerolink__currentid");
-    return id ? id : -1;
-  }
+  // saveCurrentId(id) {
+  //   sessionStorage.setItem("aerolink__currentid", id);
+  // }
+  // removeCurrentId() {
+  //   sessionStorage.removeItem("aerolink__currentid");
+  // }
+  // getCurrentId() {
+  //   const id = sessionStorage.getItem("aerolink__currentid");
+  //   return id ? id : -1;
+  // }
   doesAccountExist() {
     this.checkExistence();
     const accounts = JSON.parse(localStorage.getItem("aerolink_accountsdata"));

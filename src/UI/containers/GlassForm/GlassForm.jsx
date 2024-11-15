@@ -2,9 +2,12 @@ import React from "react";
 
 const GlassForm = (props) => {
   return (
-    <section className="glassform">
-      <h2 className="glassform__heading">{props.heading}</h2>
-      {props.children}
+    <section className="glass  ">
+      {props.heading && (
+        <h2 className="glass__heading glassform__heaing">{props.heading}</h2>
+      )}
+
+      <div className="glass__children ">{props.children}</div>
     </section>
   );
 };

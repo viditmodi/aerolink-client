@@ -5,56 +5,68 @@ import REGEX from "../../../data/REGEX.constant";
 import HttpRequest from "../../../api/account.api";
 import localStore from "../../../config/localstorage.config";
 import IdContext from "../../../context/IdContext/IdContext";
+import storage from "../../../helpers/storage.helper";
+import { Popup } from "../../../functions";
 
 const LoginForm = (props) => {
-  const ctx = useContext(IdContext);
-  const queryParams = new URLSearchParams(window.location.search);
-  const redirect = queryParams.get("r");
+  // Local States
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // Hook Variables
+  const ctx = useContext(IdContext);
   const navigate = useNavigate();
 
-  // Login Form Submit Handler
+  // Other Variables
+  const queryParams = new URLSearchParams(window.location.search);
+  const redirect = queryParams.get("r");
+
+  // Handler: Login Form Submit Handler
   const loginUser = async (e) => {
-    props.setIsLoading(true);
+    ctx.setIsLoading(true);
     e.preventDefault();
 
     try {
       console.log("Logging in");
       // Request Handler
 
-      const { newLogin, index } = await HttpRequest.logIntoAccount({
+      const { newLogin, index, length } = await HttpRequest.logIntoAccount({
         query: email,
         password: password,
       });
       console.log("Login Index: " + index);
 
-      //TODO: Confirm if he wishes to be redirected
-      //TODO: Else stay on the same page and allow another login
+      let message = null;
       if (newLogin) {
-        alert("Logged in successfully. Do you want to visit dashboard?");
+        message = "Logged in successfully. Do you want to visit dashboard?";
       } else {
-        alert("Already Logged in. Do you want to visit dashboard?");
+        message = "Already Logged in. Do you want to visit dashboard?";
       }
-
-      if (index >= 0) {
+      const confirmarion = await Popup.confirm(message);
+      if (confirmarion) {
+        // if (index >= 0) {
         ctx.setCurrentId(index);
-        localStore.saveCurrentId(index);
-
+        storage.saveSessionIndex(index);
+        // localStore.saveCurrentId(index);
         if (redirect) {
           window.location.replace(redirect);
         } else {
           navigate(`/${index}/dashboard`);
         }
-        // navigate(`/${index}/dashboard`);
+        // }
       }
 
-      props.setIsLoading(false);
-    } catch (error) {}
+      ctx.setIsLoading(false);
+    } catch (error) {
+      await Popup.alert(error.message);
+      ctx.setIsLoading(false);
+    }
   };
+
+  // Component
   return (
     <Fragment>
-      <form className="glassform__form" onSubmit={loginUser}>
+      <form className="glass__form" onSubmit={loginUser}>
         <BulbLabelTextBox
           type={"email"}
           id={"email"}
@@ -75,19 +87,19 @@ const LoginForm = (props) => {
         ></BulbLabelTextBox>
         <button
           type="submit"
-          className="glassform__btn btn shadow3d-btn shadow3d-btn--focus"
+          className="glass__btn btn shadow3d-btn shadow3d-btn--focus"
         >
           Login
         </button>
       </form>
-      <p className="glassform__text">
-        <Link to={"/password/reset"} className="glassform__link">
+      <p className="glass__text">
+        <Link to={"/password/reset"} className="glass__link">
           Forgot Password
         </Link>
       </p>
-      <p className="glassform__text">
+      <p className="glass__text">
         New to AeroLink?{" "}
-        <Link to={"/register"} className="glassform__link">
+        <Link to={"/register"} className="glass__link">
           Register Now
         </Link>
       </p>

@@ -5,10 +5,16 @@
     right: 0;
     width: 6rem;
     aspect-ratio: 1;
-    background-color: crimson;
-    border-radius: 50% 0% 50% 50%;
+    border: 2px solid crimson;
+    background-image: linear-gradient(
+      to bottom right,
+      crimson,
+      rgb(255, 99, 131)
+    );
+    // border-radius: 50% 0% 50% 50%;
     border-radius: 30% 0% 30% 60%;
     z-index: 101;
+    color: white;
   }
 
   &__nav {
@@ -23,8 +29,8 @@
     align-items: center;
     transition: 0.3s ease-in-out;
     z-index: 100;
-    // background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
+    background-color: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(40px);
     overflow: hidden;
 
     &--open {

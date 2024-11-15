@@ -1,13 +1,16 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { BulbLabelTextBox } from "../../blocks";
 import { Link, useNavigate } from "react-router-dom";
 import REGEX from "../../../data/REGEX.constant";
 // Remove: import request from "../../../config/axios.config";
 import HttpRequest from "../../../api/account.api";
+import IdContext from "../../../context/IdContext/IdContext";
+import { Popup } from "../../../functions";
 // Remove: import { Loader } from "../";
 
 //
-const RegisterForm = (props) => {
+const RegisterForm = () => {
+  const ctx = useContext(IdContext);
   const [email, setEmail] = useState("");
   const queryParams = new URLSearchParams(window.location.search);
   const redirect = queryParams.get("r");
@@ -15,35 +18,40 @@ const RegisterForm = (props) => {
 
   // The Function to Handle the Registeration Form Submit
   const registerUser = async (e) => {
-    props.setIsLoading(true);
+    ctx.setIsLoading(true);
     e.preventDefault();
     try {
       console.log("Registering User");
 
       // the method that handles the registration request
       // Note: if the response contains status code 4xx or 5xx an error will be thrown and handled in the catch block
-      // TODO: add first_name, middle_name, last_name, phone in the form
+      // Dropped: add first_name, middle_name, last_name, phone in the form
       const res = await HttpRequest.createAccount({ email });
 
       // checks if the the page has to redirected
-      // TODO: show success message
-      if (redirect) {
-        navigate(`/login?r=${redirect}`);
-      } else {
+      const confirmation = await Popup.confirm(
+        res.message + ". Redirect to Login?"
+      );
+      if (confirmation) {
+        // if (redirect) {
+        //   navigate(`/login?r=${redirect}`);
+        // } else {
         navigate(`/login`);
+        // }
       }
-      props.setIsLoading(false);
+      ctx.setIsLoading(false);
     } catch (error) {
       console.log(error);
       // handling the error message
-      // TODO: Create an Alert Component
-      alert(error.message);
-      props.setIsLoading(false);
+      await Popup.alert(error.message, () => {});
+      ctx.setIsLoading(false);
     }
   };
   return (
     <Fragment>
-      <form className="glassform__form" onSubmit={registerUser}>
+      {/* {showPopUp} */}
+      {/* <hr className="glassform__hr" /> */}
+      <form className="glass__form" onSubmit={registerUser}>
         <BulbLabelTextBox
           type={"email"}
           id={"email"}
@@ -55,14 +63,15 @@ const RegisterForm = (props) => {
         ></BulbLabelTextBox>
         <button
           type="submit"
-          className="glassform__btn btn shadow3d-btn shadow3d-btn--focus"
+          className="glass__btn btn shadow3d-btn shadow3d-btn--focus"
         >
           Register
         </button>
       </form>
-      <p className="glassform__text">
+      <hr className="glassform__hr" />
+      <p className="glass__text">
         Already have account?{" "}
-        <Link to={"/login"} className="glassform__link">
+        <Link to={"/login"} className="glass__link">
           Login Here
         </Link>
       </p>

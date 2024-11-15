@@ -4,17 +4,15 @@ import { BulbLabelTextBox } from "../../blocks";
 import REGEX from "../../../data/REGEX.constant";
 import localStore from "../../../config/localstorage.config";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  changePasswordRequest,
-  generateNewOTP,
-  resetPasswordRequest,
-  verifyOTPRequest,
-} from "../../../api/account.api";
+import HttpRequest from "../../../api/account.api";
 import { setPageTitle } from "../../../functions/document.functions";
 import IdContext from "../../../context/IdContext/IdContext";
+import storage from "../../../helpers/storage.helper";
+import { Popup } from "../../../functions";
 
 const PasswordPage = (props) => {
   const type = props.type;
+  const ctx = useContext(IdContext);
   const { id } = useParams();
 
   const [heading, setHeading] = useState("");
@@ -31,7 +29,7 @@ const PasswordPage = (props) => {
 
   useEffect(() => {
     if (type === "change") {
-      const accountData = localStore.getAccountData(id);
+      const accountData = storage.getAccountByIndex(id);
       setEmail(accountData.email);
       setHeading("Change Password");
       setPageTitle("Change Password | AeroLink");
@@ -43,52 +41,81 @@ const PasswordPage = (props) => {
 
   const generateOTP = async (e) => {
     e.preventDefault();
-    const res = await generateNewOTP(email);
-    console.log(res);
-    if (res.status) {
+    try {
+      const res = await HttpRequest.generateOTP(email);
+      console.log(res);
+      // if (res.status) {
       setHeading("Verify OTP");
       setOTPSent(true);
       setOTPVerified(false);
       setPasswordChanged(false);
       setPasswordReset(false);
+      // }
+    } catch (error) {
+      await Popup.alert(error.message);
     }
   };
   const verifyOTP = async (e) => {
     e.preventDefault();
-    const res = await verifyOTPRequest(email, otp);
-    console.log(res);
-    if (res.status) {
-      setOTPSent(false);
-      setOTPVerified(true);
-      setPasswordChanged(false);
-      setPasswordReset(false);
-      //   setHeading("Verified OTP");
+    try {
+      const res = await HttpRequest.verifyOTP(email, otp);
+      console.log(res);
+      if (res.status) {
+        setOTPSent(false);
+        setOTPVerified(true);
+        setPasswordChanged(false);
+        setPasswordReset(false);
+        //   setHeading("Verified OTP");
+      }
+    } catch (error) {
+      await Popup.alert(error.message);
     }
   };
 
   const changePassword = async (e) => {
     e.preventDefault();
-    const data = { password, confirm_password: confirmPassword };
-    const res = await changePasswordRequest(email, data);
-    console.log(res);
-    if (res.status) {
-      setOTPSent(false);
-      setOTPVerified(false);
-      setPasswordChanged(true);
-      setPasswordReset(false);
-      setHeading("Password Changed");
+    try {
+      const data = { password, confirm_password: confirmPassword };
+      const confirmation = await Popup.confirm(
+        "Do you want to change the password?"
+      );
+      if (!confirmation) {
+        return;
+      }
+      const res = await HttpRequest.changePassword(email, data);
+      console.log(res);
+      if (res.status) {
+        setOTPSent(false);
+        setOTPVerified(false);
+        setPasswordChanged(true);
+        setPasswordReset(false);
+        setHeading("Password Changed");
+      }
+    } catch (error) {
+      await Popup.alert(error.message);
     }
   };
+
   const resetPassword = async (e) => {
     e.preventDefault();
-    const res = await resetPasswordRequest(email);
-    console.log(res);
-    if (res.status) {
-      setOTPSent(false);
-      setOTPVerified(false);
-      setPasswordChanged(false);
-      setPasswordReset(true);
-      setHeading("Password Reset");
+    try {
+      const confirmation = await Popup.confirm(
+        "Do you want to reset the password?"
+      );
+      if (!confirmation) {
+        return;
+      }
+      const res = await HttpRequest.resetPassword(email);
+      console.log(res);
+      if (res.status) {
+        setOTPSent(false);
+        setOTPVerified(false);
+        setPasswordChanged(false);
+        setPasswordReset(true);
+        setHeading("Password Reset");
+      }
+    } catch (error) {
+      await Popup.alert(error.message);
     }
   };
 

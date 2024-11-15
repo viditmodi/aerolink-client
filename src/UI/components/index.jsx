@@ -5,3 +5,5 @@ export { default as NavBar } from "./NavBar/NavBar";
 export { default as CreditCard } from "./CreditCard/CreditCard";
 export { default as UpdateForm } from "./UpdateForm/UpdateForm";
 export { default as Timer } from "./Timer/Timer";
+export { default as Alert } from "./PopUps/Alert/Alert";
+export { default as Confirm } from "./PopUps/Confirm/Confirm";

@@ -1,10 +1,12 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Loader, Timer } from "../../components";
-import { logoutFromSingleAccount } from "../../../api/account.api";
-import localStore from "../../../config/localstorage.config";
+import HttpRequest from "../../../api/account.api";
+// import localStore from "../../../config/localstorage.config";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import IdContext from "../../../context/IdContext/IdContext";
 import { setPageTitle } from "../../../functions/document.functions";
+import storage from "../../../helpers/storage.helper";
+import { Popup } from "../../../functions";
 
 const LogOutPage = (props) => {
   const ctx = useContext(IdContext);
@@ -12,39 +14,40 @@ const LogOutPage = (props) => {
 
   const [text, setText] = useState("");
 
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [isCounting, setIsCounting] = useState(false);
   const { id } = useParams();
-  const [accountData, setAccountData] = useState(localStore.getAccountData(id));
+  const [accountData, setAccountData] = useState(storage.getAccountByIndex(id));
   useEffect(() => {
-    const data = localStore.getAccountData(id);
+    const data = storage.getAccountByIndex(id);
     setAccountData(data);
-    setPageTitle("Logging out " + data.email + " | AeroLink");
   }, []);
   if (accountData) {
+    setPageTitle("Logging out " + accountData?.email + " | AeroLink");
     useEffect(() => {
-      setIsLoading(true);
+      ctx.setIsLoading(true);
       if (props.type === "one") {
         setText("Logging out from current account");
-        logoutFromSingleAccount(id)
+        HttpRequest.logoutFromSingleAccount(id)
           .then((res) => {
             ctx.setCurrentId(-1);
-            localStore.removeCurrentId();
+            storage.removeSessionIndex();
             setIsCounting(true);
-            setIsLoading(false);
+            ctx.setIsLoading(false);
           })
-          .catch((error) => {
+          .catch(async (error) => {
             console.log(error);
-            setIsLoading(false);
+            await Popup.alert(error.message);
+            ctx.setIsLoading(false);
           });
       } else if (props.type === "all") {
         //   alert("all");
       }
-    }, [props.type]);
+    }, []);
 
     return (
       <Fragment>
-        {isLoading && <Loader></Loader>}
+        {/* {isLoading && <Loader></Loader>} */}
         <p className="logout__text">{text}</p>
         {isCounting && (
           <Timer
@@ -63,7 +66,7 @@ const LogOutPage = (props) => {
     );
   } else {
     useEffect(() => {
-      localStore.removeCurrentId();
+      storage.removeSessionIndex();
       ctx.setCurrentId(-1);
       navigate("/switch");
     }, []);

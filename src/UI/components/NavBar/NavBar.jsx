@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import localStore from "../../../config/localstorage.config";
 import IdContext from "../../../context/IdContext/IdContext";
+import storage from "../../../helpers/storage.helper";
 
 const NavBar = () => {
   const ctx = useContext(IdContext);
@@ -9,7 +10,7 @@ const NavBar = () => {
   const [menuState, setMenuState] = useState("close");
 
   const [isVisible, setIsVisible] = useState(false);
-  const numLoggedInAccounts = localStore.doesAccountExist();
+  const numberOfAccounts = storage.getNumberOfAccounts();
   useEffect(() => {}, [ctx.currentId]);
   const showMenu = () => {
     setMenuState("open");
@@ -34,17 +35,17 @@ const NavBar = () => {
           {/* login */}
           <li className="navbar__list__item" onClick={hideMenu}>
             <Link to={"/login"} className="navbar__list__link">
-              {numLoggedInAccounts === 0 ? "Login" : "Add Account"}
+              {numberOfAccounts === 0 ? "Login" : "Add Account"}
             </Link>
           </li>
           {/* register */}
           <li className="navbar__list__item" onClick={hideMenu}>
             <Link to={"/register"} className="navbar__list__link">
-              {numLoggedInAccounts === 0 ? "Register" : "Create New Account"}
+              {numberOfAccounts === 0 ? "Register" : "Create Another Account"}
             </Link>
           </li>
           {/* Switch */}
-          {numLoggedInAccounts > 0 && (
+          {numberOfAccounts > 0 && (
             <li className="navbar__list__item" onClick={hideMenu}>
               <a href="/switch" target="_blank" className="navbar__list__link">
                 Switch Account
@@ -61,7 +62,7 @@ const NavBar = () => {
               </Link>
             </li>
           )}
-          {ctx.currentId >= 0 && (
+          {/* {ctx.currentId >= 0 && (
             <li className="navbar__list__item" onClick={hideMenu}>
               <Link
                 to={`/${ctx.currentId}/password/change`}
@@ -70,7 +71,7 @@ const NavBar = () => {
                 Change Password
               </Link>
             </li>
-          )}
+          )} */}
           {ctx.currentId >= 0 && (
             <li className="navbar__list__item" onClick={hideMenu}>
               <Link
@@ -97,7 +98,9 @@ const NavBar = () => {
         onClick={isVisible ? hideMenu : showMenu}
         className="navbar__btn btn "
       >
-        M
+        <span class="material-symbols-outlined">widgets</span>
+        {/* {isVisible && <span class="material-symbols-outlined">close</span>} */}
+        {/* {!isVisible && <span class="material-symbols-outlined">widgets</span>} */}
       </button>
     </>
   );

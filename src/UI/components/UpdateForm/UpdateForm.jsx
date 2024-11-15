@@ -1,18 +1,28 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { BulbLabelTextBox } from "../../blocks";
 import REGEX from "../../../data/REGEX.constant";
-import { updateExistingAccount } from "../../../api/account.api";
+import HttpRequest from "../../../api/account.api";
 import { formatName, objectifyName } from "../../../functions/name.functions";
+import IdContext from "../../../context/IdContext/IdContext";
+import { Popup } from "../../../functions";
+import storage from "../../../helpers/storage.helper";
+import { useNavigate } from "react-router-dom";
 
 const UpdateForm = (props) => {
+  const ctx = useContext(IdContext);
+  const navigate = useNavigate();
   const [name, setName] = useState(formatName(props.accountData) || "");
   //   const [userId, setUserId] = useState("")
   //   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState(props.accountData.phone || "");
 
-  //
+  useEffect(() => {
+    setName(formatName(props.accountData));
+    setPhone(props.accountData.phone);
+  }, []);
+
   const updateUser = async (e) => {
-    props.setIsLoading(true);
+    ctx.setIsLoading(true);
     e.preventDefault();
     try {
       console.log("respnse");
@@ -26,16 +36,19 @@ const UpdateForm = (props) => {
         phone,
       };
 
-      const res = await updateExistingAccount(data);
+      const res = await HttpRequest.updateAccount(data);
       console.log(res);
+      await Popup.alert(res.message, () => {});
       if (res.status) {
-        // navigate("/login");
-        props.setUpdate(false);
+        const index = storage.getLoginIndexByEmail(res.data.email);
+        navigate(`/${index}/dashboard/profile`);
+        // props.setUpdate(false);
       }
-      props.setIsLoading(false);
+      ctx.setIsLoading(false);
     } catch (error) {
-      // props.setIsLoading(false);
-      console.log(error);
+      // console.log(error);
+      await Popup.alert(error.message);
+      ctx.setIsLoading(false);
     }
   };
   return (

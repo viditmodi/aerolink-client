@@ -1,5 +1,5 @@
 export const formatName = (data) => {
-  if (!data.first_name || !data.last_name) return "Update Your Name";
+  if (!data.first_name || !data.last_name) return "";
   let name = data.first_name + " ";
   if (data.middle_name) {
     name = name + data.middle_name + " ";
